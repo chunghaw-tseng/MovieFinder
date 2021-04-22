@@ -23,21 +23,27 @@ class DBProvider {
     String path = join(documentsDirectory.path, "MovieFinder.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE Favorites ("
-          "movie_id INTEGER PRIMARY KEY,"
-          "title TEXT,"
-          "poster_path TEXT,"
-          "vote_average TEXT,"
-          ")");
+      await db.execute('''CREATE TABLE Favorites (
+          movie_id INTEGER PRIMARY KEY,
+          title TEXT,
+          poster_path TEXT,
+          vote_average DOUBLE
+          )''');
     });
   }
 
   /// Using Raw insert
   newFavoriteMovie(Movie newMovie) async {
     final db = await database;
-    await db.rawInsert(
-        "INSERT Into Favorite (movie_id,title,poster_path,vote_average)"
-        " VALUES (${newMovie.id},${newMovie.title},${newMovie.posterPath},${newMovie.voteAverage})");
+    await db.insert("Favorite", {
+      "movie_id": newMovie.id,
+      "title": newMovie.title,
+      "poster_path": newMovie.posterPath,
+      "vote_average": newMovie.voteAverage
+    });
+    // (
+    //     "INSERT Into Favorite (movie_id,title,poster_path,vote_average)"
+    //     " VALUES (${newMovie.id},${newMovie.title},${newMovie.posterPath},${newMovie.voteAverage})");
     return getallFavoriteMovies();
   }
 
