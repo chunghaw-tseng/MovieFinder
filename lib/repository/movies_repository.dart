@@ -9,7 +9,12 @@ class MoviesRepository {
 
   Future<MovieSearch> getMovies(String query, int page) async {
     debugPrint("Getting Movies for $query");
-    var results = await apiClient.searchMovieByKeyword(query, page);
+    var results;
+    if (query != "") {
+      results = await apiClient.searchMovieByKeyword(query, page);
+    } else {
+      results = await apiClient.discoverMovies(page);
+    }
     debugPrint("JSON Finished");
     return results;
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/blocs/blocs.dart';
-import 'package:flutter_template/model/models.dart';
-import 'package:flutter_template/repository/repositories.dart';
+import 'package:moviefinder/blocs/blocs.dart';
+import 'package:moviefinder/models/models.dart';
+import 'package:moviefinder/repository/repositories.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 

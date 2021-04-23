@@ -20,8 +20,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     if (event is MoviesRequested) {
       yield SearchLoadInProgressState();
       try {
-        debugPrint("Getting Movies");
-
+        debugPrint("Getting New Movies ${event.query}");
         final MovieSearch movies =
             await moviesRepository.getMovies(event.query, _currentPage);
         searchPages = [];
@@ -35,7 +34,6 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     } else if (event is NextPageRequested) {
       try {
         debugPrint("Getting Next Page");
-
         _currentPage += 1;
         final MovieSearch movies =
             await moviesRepository.getMovies(event.query, _currentPage);

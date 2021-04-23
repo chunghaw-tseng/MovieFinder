@@ -15,6 +15,13 @@ class TMDBApi {
     return MovieSearch.fromJson(response);
   }
 
+  Future<MovieSearch> discoverMovies(int page) async {
+    debugPrint("Discover");
+    final response = await apiProvider
+        .getWithParams('/3/discover/movie', {"page": page.toString()});
+    return MovieSearch.fromJson(response);
+  }
+
   Future<Movie> fetchMovie(int movieId) async {
     final movieJson = await apiProvider.get('/3/movie/$movieId');
     print(movieJson);
