@@ -32,7 +32,7 @@ class GridMovieElement extends StatelessWidget {
             child: Stack(
           children: <Widget>[
             Hero(
-              tag: title,
+              tag: result.id,
               child: Center(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -40,35 +40,44 @@ class GridMovieElement extends StatelessWidget {
                       placeholder: (context, url) =>
                           CircularProgressIndicator(),
                       imageUrl: 'https://image.tmdb.org/t/p/w300/$posterURL',
-                      errorWidget: (context, url, error) => Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      ),
+                      errorWidget: (context, url, error) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
+                            Text("No poster to load")
+                          ]),
                     )),
               ),
             ),
             // Vote average stars
             Align(
               alignment: Alignment.topRight,
-              child: Container(
-                width: 60,
-                child: Card(
-                  elevation: 5,
-                  color: Color(0xffbda96b),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "${this.result.voteAverage}",
-                        style: TextStyle(
-                          color: Colors.black,
+              child: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Container(
+                  width: 60,
+                  child: Card(
+                    elevation: 5,
+                    color: Color(0xffbda96b),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.white,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "${this.result.voteAverage}",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

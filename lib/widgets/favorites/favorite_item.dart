@@ -37,7 +37,7 @@ class FavoriteItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
-                tag: title,
+                tag: movieID,
                 child: Container(
                   height: 150,
                   child: Padding(

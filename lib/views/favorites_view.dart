@@ -5,8 +5,7 @@ import 'package:moviefinder/models/models.dart';
 import 'package:moviefinder/widgets/favorites/favorite_item.dart';
 
 class FavoritesView extends StatefulWidget {
-  final Image bannerImg;
-  FavoritesView({Key key, this.bannerImg}) : super(key: key);
+  FavoritesView({Key key}) : super(key: key);
 
   @override
   _FavoritesViewState createState() => _FavoritesViewState();
@@ -27,9 +26,13 @@ class _FavoritesViewState extends State<FavoritesView> {
           SliverAppBar(
               pinned: true,
               floating: true,
-              expandedHeight: 60.0,
+              expandedHeight: 80.0,
               title: Text("My Favorites"),
-              flexibleSpace: FlexibleSpaceBar(background: widget.bannerImg)),
+              flexibleSpace: FlexibleSpaceBar(
+                  background: Image.asset(
+                "assets/images/banner.jpg",
+                fit: BoxFit.cover,
+              ))),
           BlocBuilder<FavoriteBloc, FavoriteState>(
             // ignore: missing_return
             builder: (context, state) {
@@ -39,7 +42,6 @@ class _FavoritesViewState extends State<FavoritesView> {
               }
               if (state is FavoriteMovieLoadSuccess) {
                 final info = state.favMovies;
-                print("Favorites $info");
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
@@ -77,9 +79,17 @@ class _FavoritesViewState extends State<FavoritesView> {
               if (state is InfoLoadFailureState) {
                 return SliverFillRemaining(
                     child: Center(
-                        child: Text(
-                  'Something went wrong!',
-                  style: TextStyle(color: Colors.red),
+                        child: Row(
+                  children: [
+                    Icon(
+                      Icons.adb_sharp,
+                      color: Colors.red,
+                    ),
+                    Text(
+                      'Oops! Something went wrong!',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  ],
                 )));
               }
             },

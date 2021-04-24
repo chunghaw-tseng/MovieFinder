@@ -40,7 +40,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Hero(
-        tag: widget.title,
+        tag: widget.id,
         child: Container(
           child: CustomScrollView(
             slivers: [
@@ -51,7 +51,16 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                 flexibleSpace: FlexibleSpaceBar(
                   background: CachedNetworkImage(
                     placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error,
+                            color: Colors.red,
+                          ),
+                          Text("No poster to load")
+                        ]),
                     imageUrl:
                         'https://image.tmdb.org/t/p/w300/${widget.posterURL}',
                     imageBuilder: (context, imageProvider) => Container(

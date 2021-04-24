@@ -14,28 +14,16 @@ class _MainViewState extends State<MainView> {
   int _selectedIndex = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
   List<Widget> _widgetOptions = [];
-  Image _discoverBanner;
-  Image _favBanner;
+  Image _banner;
 
   @override
   void initState() {
     super.initState();
-    _favBanner = Image.asset(
-      "assets/images/fav_banner.jpg",
-      fit: BoxFit.cover,
-    );
-    _discoverBanner = Image.asset(
+    _banner = Image.asset(
       "assets/images/banner.jpg",
       fit: BoxFit.cover,
     );
-    _widgetOptions = [
-      DiscoverView(
-        bannerImg: _discoverBanner,
-      ),
-      FavoritesView(
-        bannerImg: _favBanner,
-      )
-    ];
+    _widgetOptions = [DiscoverView(), FavoritesView()];
   }
 
   void _onItemTapped(int index) {
@@ -47,8 +35,8 @@ class _MainViewState extends State<MainView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(_discoverBanner.image, context);
-    precacheImage(_favBanner.image, context);
+    // Preloading the banner as it sometimes takes time
+    precacheImage(_banner.image, context);
   }
 
   @override

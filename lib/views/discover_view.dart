@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviefinder/widgets/discover/movies_grid.dart';
 
 class DiscoverView extends StatefulWidget {
-  final Image bannerImg;
-  DiscoverView({Key key, this.bannerImg}) : super(key: key);
+  DiscoverView({Key key}) : super(key: key);
 
   @override
   _DiscoverViewState createState() => _DiscoverViewState();
@@ -50,15 +49,20 @@ class _DiscoverViewState extends State<DiscoverView> {
       physics: BouncingScrollPhysics(),
       slivers: [
         SliverAppBar(
-            expandedHeight: 200.0,
+            expandedHeight: 80.0,
             flexibleSpace: FlexibleSpaceBar(
-                title: Text("Movie Finder"), background: widget.bannerImg)),
+                title: Text("Movie Finder"),
+                background: Image.asset(
+                  "assets/images/banner.jpg",
+                  fit: BoxFit.cover,
+                ))),
         SliverPadding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           sliver: SliverPersistentHeader(
+            floating: true,
             pinned: true,
             delegate: _SearchBarDelegate(
-              Card(
+              searchBar: Card(
                 child: TextField(
                   controller: _textController,
                   decoration: InputDecoration(
@@ -83,9 +87,8 @@ class _DiscoverViewState extends State<DiscoverView> {
 }
 
 class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
-  _SearchBarDelegate(this._searchBar);
-
-  final Widget _searchBar;
+  final Widget searchBar;
+  _SearchBarDelegate({this.searchBar});
 
   @override
   double get minExtent => 80;
@@ -95,11 +98,11 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
+    return Container(
       color: Colors.transparent,
       child: Padding(
-        padding: EdgeInsets.only(top: 25),
-        child: _searchBar,
+        padding: EdgeInsets.only(top: 15),
+        child: searchBar,
       ),
     );
   }
