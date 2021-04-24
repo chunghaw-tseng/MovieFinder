@@ -35,16 +35,22 @@ class DBProvider {
   /// Using Raw insert
   newFavoriteMovie(Movie newMovie) async {
     final db = await database;
-    await db.insert("Favorite", {
+    await db.insert("Favorites", {
       "movie_id": newMovie.id,
       "title": newMovie.title,
       "poster_path": newMovie.posterPath,
       "vote_average": newMovie.voteAverage
     });
-    // (
-    //     "INSERT Into Favorite (movie_id,title,poster_path,vote_average)"
-    //     " VALUES (${newMovie.id},${newMovie.title},${newMovie.posterPath},${newMovie.voteAverage})");
     return getallFavoriteMovies();
+  }
+
+  findFavoriteMovie(int id) async {
+    final db = await database;
+    var result =
+        await db.rawQuery('SELECT * FROM Favorites WHERE movie_id=?', [id]);
+    List<Movie> list =
+        result.isNotEmpty ? result.map((c) => Movie.fromMap(c)).toList() : [];
+    return list;
   }
 
   /// Get All

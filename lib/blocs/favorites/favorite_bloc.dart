@@ -15,21 +15,35 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       yield* _mapFavoriteAddedToState(event.movie);
     } else if (event is FavoriteMovieDeleted) {
       yield* _mapFavoriteDeletedToState(event.id);
+    } else if (event is FavoriteMovieFound) {
+      yield* _mapFavoriteStatusToState(event.id);
     }
   }
 
   Stream<FavoriteState> _mapFavoriteLoadedToState() async* {
     try {
-      final favorites = await DBProvider.db.getallFavoriteMovies();
+      final List<Movie> favorites = await DBProvider.db.getallFavoriteMovies();
       yield FavoriteMovieLoadSuccess(favMovies: favorites);
     } catch (_) {
       yield FavoriteLoadFailureState();
     }
   }
 
+  // Stream to check if the movie has been favorited
+  Stream<FavoriteState> _mapFavoriteStatusToState(int id) async* {
+    try {
+      final List<Movie> isFav = await DBProvider.db.findFavoriteMovie(id);
+      print("Gotten favorite response $isFav");
+      yield FavoriteMovieLoadSuccess(favMovies: isFav);
+    } catch (e) {
+      yield FavoriteLoadFailureState();
+    }
+  }
+
   Stream<FavoriteState> _mapFavoriteAddedToState(Movie movie) async* {
     if (state is FavoriteMovieLoadSuccess) {
-      final updatedMovies = await DBProvider.db.newFavoriteMovie(movie);
+      final List<Movie> updatedMovies =
+          await DBProvider.db.newFavoriteMovie(movie);
       yield FavoriteMovieLoadSuccess(favMovies: updatedMovies);
     }
   }

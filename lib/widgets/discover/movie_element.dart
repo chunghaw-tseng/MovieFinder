@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moviefinder/blocs/blocs.dart';
 import 'package:moviefinder/models/models.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:moviefinder/views/moviedetails_view.dart';
 
 class GridMovieElement extends StatelessWidget {
   final Results result;
@@ -23,12 +22,12 @@ class GridMovieElement extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           debugPrint("${result.id}");
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => MovieDetailsView(
-          //           title: title, posterURL: posterURL, id: result.id)),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MovieDetailsView(
+                    title: title, posterURL: posterURL, id: result.id)),
+          );
         },
         child: Card(
             child: Stack(
@@ -56,13 +55,13 @@ class GridMovieElement extends StatelessWidget {
                 width: 60,
                 child: Card(
                   elevation: 5,
-                  color: Colors.white,
+                  color: Color(0xffbda96b),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.star,
-                        color: Color(0xffbda96b),
+                        color: Colors.white,
                       ),
                       Text(
                         "${this.result.voteAverage}",
