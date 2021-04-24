@@ -23,6 +23,7 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  String genresString;
 
   Movie(
       {this.adult,
@@ -48,64 +49,69 @@ class Movie {
       this.title,
       this.video,
       this.voteAverage,
+      this.genresString,
       this.voteCount});
 
   factory Movie.fromMap(Map<String, dynamic> json) => new Movie(
-        id: json["movie_id"],
-        title: json["title"],
-        posterPath: json["poster_path"],
-        voteAverage: json["vote_average"],
-      );
+      id: json["movie_id"],
+      title: json["title"],
+      posterPath: json["poster_path"],
+      voteAverage: json["vote_average"],
+      genresString: json["genres"],
+      releaseDate: json["release_date"]);
 
   Movie.fromJson(Map<String, dynamic> json) {
-    try {
-      adult = json['adult'];
-      backdropPath = json['backdrop_path'];
-      budget = json['budget'];
-      if (json['genres'] != null) {
-        genres = [];
-        json['genres'].forEach((v) {
-          genres.add(new Genres.fromJson(v));
-        });
-      }
-      homepage = json['homepage'];
-      id = json['id'];
-      imdbId = json['imdb_id'];
-      originalLanguage = json['original_language'];
-      originalTitle = json['original_title'];
-      overview = json['overview'];
-      popularity = json['popularity'];
-      posterPath = json['poster_path'];
-      if (json['production_companies'] != null) {
-        productionCompanies = [];
-        json['production_companies'].forEach((v) {
-          productionCompanies.add(new ProductionCompanies.fromJson(v));
-        });
-      }
-      if (json['production_countries'] != null) {
-        productionCountries = [];
-        json['production_countries'].forEach((v) {
-          productionCountries.add(new ProductionCountries.fromJson(v));
-        });
-      }
-      releaseDate = json['release_date'];
-      revenue = json['revenue'];
-      runtime = json['runtime'];
-      if (json['spoken_languages'] != null) {
-        spokenLanguages = [];
-        json['spoken_languages'].forEach((v) {
-          spokenLanguages.add(new SpokenLanguages.fromJson(v));
-        });
-      }
-      status = json['status'];
-      tagline = json['tagline'];
-      title = json['title'];
-      video = json['video'];
-      voteAverage = json['vote_average'];
-      voteCount = json['vote_count'];
-    } catch (e) {
-      print(e);
+    adult = json['adult'];
+    backdropPath = json['backdrop_path'];
+    budget = json['budget'];
+    if (json['genres'] != null) {
+      genres = [];
+      json['genres'].forEach((v) {
+        genres.add(new Genres.fromJson(v));
+      });
     }
+    homepage = json['homepage'];
+    id = json['id'];
+    imdbId = json['imdb_id'];
+    originalLanguage = json['original_language'];
+    originalTitle = json['original_title'];
+    overview = json['overview'];
+    popularity = json['popularity'];
+    posterPath = json['poster_path'];
+    if (json['production_companies'] != null) {
+      productionCompanies = [];
+      json['production_companies'].forEach((v) {
+        productionCompanies.add(new ProductionCompanies.fromJson(v));
+      });
+    }
+    if (json['production_countries'] != null) {
+      productionCountries = [];
+      json['production_countries'].forEach((v) {
+        productionCountries.add(new ProductionCountries.fromJson(v));
+      });
+    }
+    releaseDate = json['release_date'];
+    revenue = json['revenue'];
+    runtime = json['runtime'];
+    if (json['spoken_languages'] != null) {
+      spokenLanguages = [];
+      json['spoken_languages'].forEach((v) {
+        spokenLanguages.add(new SpokenLanguages.fromJson(v));
+      });
+    }
+    status = json['status'];
+    tagline = json['tagline'];
+    title = json['title'];
+    video = json['video'];
+    voteAverage = json['vote_average'];
+    voteCount = json['vote_count'];
+    genresString = genresToString();
+  }
+
+  String genresToString() {
+    var genresList = [];
+    for (var genre in genres) genresList.add(genre.toString());
+    return genresList.join(" ,");
   }
 
   Map<String, dynamic> toJson() {

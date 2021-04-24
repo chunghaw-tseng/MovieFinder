@@ -27,7 +27,9 @@ class DBProvider {
           movie_id INTEGER PRIMARY KEY,
           title TEXT,
           poster_path TEXT,
-          vote_average DOUBLE
+          genres TEXT,
+          vote_average DOUBLE,
+          release_date TEXT
           )''');
     });
   }
@@ -35,25 +37,18 @@ class DBProvider {
   /// Using Raw insert
   newFavoriteMovie(Movie newMovie) async {
     final db = await database;
+    print("${newMovie.genresToString()}");
     await db.insert("Favorites", {
       "movie_id": newMovie.id,
       "title": newMovie.title,
+      "genres": newMovie.genresToString(),
       "poster_path": newMovie.posterPath,
-      "vote_average": newMovie.voteAverage
+      "vote_average": newMovie.voteAverage,
+      "release_date": newMovie.releaseDate,
     });
     return getallFavoriteMovies();
   }
 
-  findFavoriteMovie(int id) async {
-    final db = await database;
-    var result =
-        await db.rawQuery('SELECT * FROM Favorites WHERE movie_id=?', [id]);
-    List<Movie> list =
-        result.isNotEmpty ? result.map((c) => Movie.fromMap(c)).toList() : [];
-    return list;
-  }
-
-  /// Get All
   getallFavoriteMovies() async {
     final db = await database;
     var res = await db.query("Favorites");
@@ -64,7 +59,7 @@ class DBProvider {
 
   deleteFavoriteMovie(int id) async {
     final db = await database;
-    db.delete("Movie", where: "id = ?", whereArgs: [id]);
+    await db.delete("Favorites", where: "movie_id = ?", whereArgs: [id]);
     return getallFavoriteMovies();
   }
 }

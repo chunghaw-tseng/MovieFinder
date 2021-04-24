@@ -26,8 +26,8 @@ class _MoviesGridState extends State<MoviesGrid> {
           final movies = state.movies;
           print("Movie Loaded");
           return SliverGrid(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200.0,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
               mainAxisExtent: 300.0,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,

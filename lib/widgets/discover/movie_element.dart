@@ -21,7 +21,6 @@ class GridMovieElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          debugPrint("${result.id}");
           Navigator.push(
             context,
             MaterialPageRoute(

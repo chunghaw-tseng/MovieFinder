@@ -19,15 +19,6 @@ class FavoriteMovieDeleted extends FavoriteEvent {
   List<Object> get props => [id];
 }
 
-class FavoriteMovieFound extends FavoriteEvent {
-  final int id;
-
-  const FavoriteMovieFound({@required this.id}) : assert(id != null);
-
-  @override
-  List<Object> get props => [id];
-}
-
 class FavoriteMovieAdded extends FavoriteEvent {
   final Movie movie;
 

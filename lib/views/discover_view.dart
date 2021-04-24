@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviefinder/blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moviefinder/repository/repositories.dart';
 import 'package:moviefinder/widgets/discover/movies_grid.dart';
 
 class DiscoverView extends StatefulWidget {
@@ -55,7 +54,7 @@ class _DiscoverViewState extends State<DiscoverView> {
             flexibleSpace: FlexibleSpaceBar(
                 title: Text("Movie Finder"), background: widget.bannerImg)),
         SliverPadding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           sliver: SliverPersistentHeader(
             pinned: true,
             delegate: _SearchBarDelegate(
@@ -89,16 +88,19 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget _searchBar;
 
   @override
-  double get minExtent => 55;
+  double get minExtent => 80;
   @override
-  double get maxExtent => 55;
+  double get maxExtent => 80;
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return new Container(
       color: Colors.transparent,
-      child: _searchBar,
+      child: Padding(
+        padding: EdgeInsets.only(top: 25),
+        child: _searchBar,
+      ),
     );
   }
 

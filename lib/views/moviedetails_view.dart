@@ -32,17 +32,16 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
     print("Init Details");
     BlocProvider.of<InfoMovieBloc>(context)
         .add(InfoMovieRequested(id: widget.id));
-    BlocProvider.of<FavoriteBloc>(context)
-        .add(FavoriteMovieFound(id: widget.id));
+    BlocProvider.of<FavoriteBloc>(context).add(FavoriteMoviesRequested());
   }
 
   // On loading A RenderFlex overflowed by 400 pixels on the right.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Hero(
-          tag: widget.title,
+      body: Hero(
+        tag: widget.title,
+        child: Container(
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
