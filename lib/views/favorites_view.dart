@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviefinder/blocs/blocs.dart';
-import 'package:moviefinder/models/models.dart';
 import 'package:moviefinder/widgets/favorites/favorite_item.dart';
 
 class FavoritesView extends StatefulWidget {
@@ -47,7 +46,6 @@ class _FavoritesViewState extends State<FavoritesView> {
                     (BuildContext context, int index) {
                       return Dismissible(
                           key: Key(info[index].title),
-                          direction: DismissDirection.endToStart,
                           child: FavoriteItem(
                             title: info[index].title,
                             posterURL: info[index].posterPath,

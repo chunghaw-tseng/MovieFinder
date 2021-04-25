@@ -19,7 +19,7 @@ class InfoMovieBloc extends Bloc<InfoMovieEvent, InfoMovieState> {
       try {
         debugPrint("Getting Movie Details");
         final Movie movieInfo = await moviesRepository.getMovieData(event.id);
-        debugPrint("Received movies size ${movieInfo}");
+        debugPrint("Received movies size $movieInfo");
         yield InfoMovieLoadSuccess(movieInfo: movieInfo);
       } catch (_) {
         yield InfoLoadFailureState();

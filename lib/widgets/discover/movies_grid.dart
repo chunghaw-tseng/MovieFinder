@@ -18,11 +18,12 @@ class _MoviesGridState extends State<MoviesGrid> {
       // ignore: missing_return
       builder: (context, state) {
         print("In bloc builder");
-        if (state is SearchLoadInProgressState || state is SearchInitialState) {
+        if (state is MoviesSearchLoadInProgressState ||
+            state is MoviesSearchInitialState) {
           return SliverFillRemaining(
               child: Center(child: CircularProgressIndicator()));
         }
-        if (state is MoviesLoadSuccess) {
+        if (state is MoviesSearchLoadSuccess) {
           final movies = state.movies;
           print("Movie Loaded");
           return SliverGrid(
@@ -35,6 +36,7 @@ class _MoviesGridState extends State<MoviesGrid> {
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) => GridMovieElement(
+                  index: index,
                   result: movies[index],
                   isFav: false,
                   posterURL: movies[index].posterPath,
@@ -43,19 +45,22 @@ class _MoviesGridState extends State<MoviesGrid> {
             ),
           );
         }
-        if (state is SearchLoadFailureState) {
+        if (state is MoviesSearchLoadFailureState) {
           return SliverFillRemaining(
               child: Center(
-            child: Row(children: [
-              Icon(
-                Icons.adb_sharp,
-                color: Colors.red,
-              ),
-              Text(
-                'Oops! Something went wrong!',
-                style: TextStyle(color: Colors.red),
-              )
-            ]),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.adb_sharp,
+                    color: Colors.red,
+                  ),
+                  Text(
+                    'Oops! Something went wrong!',
+                    style: TextStyle(color: Colors.red),
+                  )
+                ]),
           ));
         }
       },

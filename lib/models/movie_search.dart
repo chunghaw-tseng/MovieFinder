@@ -4,6 +4,8 @@ class MovieSearch {
   int totalPages;
   int totalResults;
 
+  MovieSearch({this.page, this.results, this.totalPages, this.totalResults});
+
   MovieSearch.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
@@ -68,7 +70,7 @@ class Results {
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     posterPath = json['poster_path'];
     releaseDate = json['release_date'];
     title = json['title'];

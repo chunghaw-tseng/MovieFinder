@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviefinder/blocs/blocs.dart';
-import 'package:moviefinder/models/models.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:moviefinder/repository/repositories.dart';
 import 'package:moviefinder/widgets/moviedetails/movieInfo.dart';
 
 class MovieDetailsView extends StatefulWidget {
-  final MoviesRepository moviesRepository;
-  final Movie movieInfo;
   final String posterURL;
   final String title;
   final int id;
-  MovieDetailsView(
-      {Key key,
-      this.movieInfo,
-      this.posterURL,
-      this.title,
-      this.id,
-      this.moviesRepository})
+  MovieDetailsView({Key key, this.posterURL, this.title, this.id})
       : super(key: key);
 
   @override

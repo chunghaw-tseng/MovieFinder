@@ -53,6 +53,7 @@ class _MovieInfoState extends State<MovieInfo> {
                       if (state is FavoriteMovieLoadSuccess) {
                         final fav = state.favMovies;
                         return Card(
+                            key: Key("FavoriteBtn"),
                             child: IconButton(
                                 onPressed: () {
                                   if (findMovieID(fav)) {

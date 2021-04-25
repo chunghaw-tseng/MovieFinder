@@ -64,11 +64,13 @@ class _MainViewState extends State<MainView> {
           Icon(
             Icons.sensor_door_rounded,
             size: 30,
+            key: Key("DiscoverPage"),
             color: Color(0xfffaf9f5),
           ),
           Icon(
             Icons.star,
             size: 30,
+            key: Key("FavoritePage"),
             color: Color(0xfffaf9f5),
           ),
         ],

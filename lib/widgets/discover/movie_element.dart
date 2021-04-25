@@ -5,6 +5,7 @@ import 'package:moviefinder/views/moviedetails_view.dart';
 
 class GridMovieElement extends StatelessWidget {
   final Results result;
+  final int index;
   final String posterURL;
   final String title;
   final bool isFav;
@@ -13,6 +14,7 @@ class GridMovieElement extends StatelessWidget {
       {Key key,
       @required this.posterURL,
       @required this.title,
+      @required this.index,
       this.isFav,
       this.result})
       : super(key: key);
@@ -61,6 +63,7 @@ class GridMovieElement extends StatelessWidget {
                 child: Container(
                   width: 60,
                   child: Card(
+                    key: Key("Votes$index"),
                     elevation: 5,
                     color: Color(0xffbda96b),
                     child: Row(

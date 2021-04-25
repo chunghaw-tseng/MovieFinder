@@ -9,20 +9,20 @@ abstract class MoviesState extends Equatable {
   List<Object> get props => [];
 }
 
-class SearchInitialState extends MoviesState {}
+class MoviesSearchInitialState extends MoviesState {}
 
-class SearchLoadInProgressState extends MoviesState {}
+class MoviesSearchLoadInProgressState extends MoviesState {}
 
 /// Movie Search Load Success
-class MoviesLoadSuccess extends MoviesState {
+class MoviesSearchLoadSuccess extends MoviesState {
   final List<Results> movies;
   final int totalMovies;
 
-  const MoviesLoadSuccess({@required this.movies, this.totalMovies})
+  const MoviesSearchLoadSuccess({@required this.movies, this.totalMovies})
       : assert(movies != null);
 
   @override
   List<Object> get props => [movies, totalMovies];
 }
 
-class SearchLoadFailureState extends MoviesState {}
+class MoviesSearchLoadFailureState extends MoviesState {}

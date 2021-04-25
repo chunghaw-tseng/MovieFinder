@@ -7,29 +7,28 @@ import 'package:bloc/bloc.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   final MoviesRepository moviesRepository;
-  List<Results> searchPages = [];
+  List<Results> searchResults = [];
   int _currentPage = 1;
 
   MoviesBloc({@required this.moviesRepository})
       : assert(moviesRepository != null),
-        super(SearchInitialState());
+        super(MoviesSearchInitialState());
 
   @override
   Stream<MoviesState> mapEventToState(MoviesEvent event) async* {
     // Search Movies
     if (event is MoviesRequested) {
-      yield SearchLoadInProgressState();
+      yield MoviesSearchLoadInProgressState();
       try {
         debugPrint("Getting New Movies ${event.query}");
         final MovieSearch movies =
             await moviesRepository.getMovies(event.query, _currentPage);
-        searchPages = [];
-        searchPages.addAll(movies.results);
-        debugPrint("Received movies size ${movies.results.length}");
-        yield MoviesLoadSuccess(
-            movies: searchPages, totalMovies: movies.totalResults);
+        searchResults = [];
+        searchResults.addAll(movies.results);
+        yield MoviesSearchLoadSuccess(
+            movies: searchResults, totalMovies: movies.totalResults);
       } catch (_) {
-        yield SearchLoadFailureState();
+        yield MoviesSearchLoadFailureState();
       }
     } else if (event is NextPageRequested) {
       try {
@@ -37,11 +36,11 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
         _currentPage += 1;
         final MovieSearch movies =
             await moviesRepository.getMovies(event.query, _currentPage);
-        searchPages.addAll(movies.results);
-        debugPrint("Received movies size ${searchPages.length}");
-        yield MoviesLoadSuccess(movies: searchPages);
+        searchResults.addAll(movies.results);
+        yield MoviesSearchLoadSuccess(
+            movies: searchResults, totalMovies: movies.totalResults);
       } catch (_) {
-        yield SearchLoadFailureState();
+        yield MoviesSearchLoadFailureState();
       }
     }
   }

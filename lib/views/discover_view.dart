@@ -51,7 +51,7 @@ class _DiscoverViewState extends State<DiscoverView> {
         SliverAppBar(
             expandedHeight: 80.0,
             flexibleSpace: FlexibleSpaceBar(
-                title: Text("Movie Finder"),
+                title: Text("Movie Finder", key: Key("Title")),
                 background: Image.asset(
                   "assets/images/banner.jpg",
                   fit: BoxFit.cover,
@@ -64,6 +64,7 @@ class _DiscoverViewState extends State<DiscoverView> {
             delegate: _SearchBarDelegate(
               searchBar: Card(
                 child: TextField(
+                  key: Key("DiscoverTextField"),
                   controller: _textController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
