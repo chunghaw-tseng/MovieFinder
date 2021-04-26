@@ -19,7 +19,6 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
   @override
   void initState() {
     super.initState();
-    print("Init Details");
     BlocProvider.of<InfoMovieBloc>(context)
         .add(InfoMovieRequested(id: widget.id));
     BlocProvider.of<FavoriteBloc>(context).add(FavoriteMoviesRequested());

@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:moviefinder/blocs/favorites/favorites.dart';
@@ -15,19 +13,10 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   FavoriteBloc favBloc;
   MockFavoritesDB favoritesDB;
-  final channel = "plugins.flutter.io/path_provider";
 
   setUpAll(() async {
     favBloc = FavoriteBloc();
     favoritesDB = MockFavoritesDB();
-    final directory = await Directory.systemTemp.createTemp();
-    MethodChannel(channel)
-        .setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'getTemporaryDirectory') {
-        return directory.path;
-      }
-      return null;
-    });
   });
 
   group('FavoriteBloc', () {

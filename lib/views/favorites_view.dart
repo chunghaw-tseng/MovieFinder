@@ -45,7 +45,7 @@ class _FavoritesViewState extends State<FavoritesView> {
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                       return Dismissible(
-                          key: Key(info[index].title),
+                          key: Key("Favorite$index"),
                           child: FavoriteItem(
                             title: info[index].title,
                             posterURL: info[index].posterPath,

@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:moviefinder/models/models.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
 class DBProvider {
@@ -19,8 +17,8 @@ class DBProvider {
   }
 
   initDB() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "MovieFinder.db");
+    String dbPath = await getDatabasesPath();
+    String path = join(dbPath, "MovieFinder.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''CREATE TABLE Favorites (
@@ -34,7 +32,6 @@ class DBProvider {
     });
   }
 
-  /// Using Raw insert
   newFavoriteMovie(Movie newMovie) async {
     final db = await database;
     print("${newMovie.genresToString()}");

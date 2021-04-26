@@ -32,11 +32,6 @@ class _DiscoverViewState extends State<DiscoverView> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     _textController.dispose();

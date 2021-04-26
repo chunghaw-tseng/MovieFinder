@@ -51,7 +51,7 @@ void main() {
   testWidgets(
       "click on an item to show information"
       "click favorite button to add to favorites and check favorites"
-      "check favorites page and then delete the favorite movie from details page",
+      "check favorites page and then delete favorite movie from details page",
       (WidgetTester tester) async {
     app.main();
     await tester.pumpAndSettle();
@@ -68,8 +68,8 @@ void main() {
     await tester.tap(find.byKey(Key("FavoritePage")));
     await tester.pumpAndSettle();
     // Find favorite movie in favorite page
-    expect(find.byType(FavoriteItem), findsOneWidget);
-    await tester.tap(find.byType(FavoriteItem));
+    expect(find.byKey(Key("Favorite0")), findsWidgets);
+    await tester.tap(find.byKey(Key("Favorite0")));
     await tester.pumpAndSettle();
     expect(find.byKey(Key("FavoriteBtn")), findsOneWidget);
     await tester.tap(find.byKey(Key("FavoriteBtn")));
@@ -77,7 +77,7 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
     // Test that the favorite movie was deleted
-    expect(find.byType(FavoriteItem), findsNothing);
+    expect(find.byKey(Key("Favorite0")), findsNothing);
   });
 
   testWidgets(
@@ -100,10 +100,10 @@ void main() {
     await tester.tap(find.byKey(Key("FavoritePage")));
     await tester.pumpAndSettle();
     // Check that the movie was favorited
-    expect(find.byType(FavoriteItem), findsOneWidget);
-    await tester.drag(find.byType(FavoriteItem), Offset(500.0, 0.0));
+    expect(find.byType(FavoriteItem), findsWidgets);
+    await tester.drag(find.byKey(Key("Favorite0")), Offset(500.0, 0.0));
     await tester.pumpAndSettle();
     // Test that the movie was deleted when swiped
-    expect(find.byType(FavoriteItem), findsNothing);
+    expect(find.byKey(Key("Favorite0")), findsNothing);
   });
 }
